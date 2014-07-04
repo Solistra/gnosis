@@ -22,7 +22,14 @@ Gnosis exists to ease the development of alternatives to the native `Game.exe` f
 
 **In short, ethical usage of Gnosis is your responsibility as a developer, not the library itself.**
 
+## Attribution
+The decryption algorithms used by this library are based upon algorithms previously released by [porkness][Porkness] for a fork of the [openrgss][OpenRGSS] project with specific modifications for this library.
+
+Unfortunately, the original source of these algorithms could not be located -- please open an issue if you know the original source so they can be properly attributed.
+
 ## License
 Gnosis is made available under the terms of the LGPL version 3 license. See the included LICENSE file for more information.
 
-[repo]: https://www.github.com/Solistra/gnosis
+[repo]:     https://www.github.com/Solistra/gnosis
+[openrgss]: http://openrgss.org
+[porkness]: https://www.github.com/Porkness

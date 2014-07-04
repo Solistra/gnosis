@@ -1,0 +1,7 @@
+.yardoc/
+coverage/
+doc/
+pkg/
+tmp/
+.ruby-version
+Gemfile.lock

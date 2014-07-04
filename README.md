@@ -1,4 +1,7 @@
 # Gnosis
+[![Build Status](https://travis-ci.org/Solistra/gnosis.svg?branch=master)][travis]
+[![Coverage Status](https://coveralls.io/repos/Solistra/gnosis/badge.png?branch=master)][coverage]
+
 1. _noun: spiritual knowledge; mystical enlightenment._
 2. _noun: the act or process of knowing._
 
@@ -30,6 +33,8 @@ Unfortunately, the original source of these algorithms could not be located -- p
 ## License
 Gnosis is made available under the terms of the LGPL version 3 license. See the included LICENSE file for more information.
 
+[coverage]: https://coveralls.io/r/Solistra/gnosis?branch=master
 [repo]:     https://www.github.com/Solistra/gnosis
 [openrgss]: http://openrgss.org
 [porkness]: https://www.github.com/Porkness
+[travis]:   https://travis-ci.org/Solistra/gnosis

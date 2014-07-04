@@ -46,6 +46,13 @@ module Gnosis
     end
     alias_method :length, :size
     
+    # Returns the type of archive represented by this {Archive Archive}.
+    # 
+    # @return [String] the type of archive represented
+    def type
+      @translator.class.name.split(/::/).last
+    end
+    
     # Decrypts the given internal filename. The returned binary string may be
     # converted into an IO object in memory via the StringIO class present in
     # the Ruby standard library. Yields the decrypted binary data if a block is
@@ -113,8 +120,7 @@ module Gnosis
     # 
     # @return [String] representation of this {Archive Archive} as a string.
     def to_s
-      File.extname(@archive).gsub!('.', '').upcase << \
-        " Archive: #{contents.size} files"
+      "#{type} Archive: #{contents.size} files"
     end
     alias_method :inspect, :to_s
   end

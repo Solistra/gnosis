@@ -12,7 +12,7 @@ describe Gnosis::Archive do
       end
       it 'has an appropriate translator assigned' do
         expect(instance.instance_variable_get(:@translator).class).to be \
-        Gnosis::Translators::RGSS3A
+          Gnosis::Translators::RGSS3A
       end
       it 'builds a hash of file encryption information' do
         expect(instance.files).not_to be_empty

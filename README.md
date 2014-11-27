@@ -12,7 +12,7 @@ Gnosis performs in-memory decryption of the contents of encrypted RGSSAD archive
 At present, Gnosis is still in early development. As such, you will need to clone [the GitHub repository][repo] and install its development dependencies in order to do anything with it:
 
 ```sh
-$ git clone git@github.com:Solistra/gnosis.git
+$ git clone https://github.com/Solistra/gnosis.git
 $ cd gnosis/
 $ gem install bundler
 $ bundle install
@@ -23,7 +23,7 @@ This library has been designed to help facilitate the loading of the RPG Maker s
 
 Gnosis exists to ease the development of alternatives to the native `Game.exe` files given by the RPG Maker series by default -- it is _not_ designed to encourage piracy of encrypted resources.
 
-**In short, ethical usage of Gnosis is your responsibility as a developer, not the library itself.**
+**In short, ethical usage of Gnosis is your responsibility as a user, not the library itself.**
 
 ## Attribution
 The decryption algorithms used by this library are based upon algorithms previously released by [Porkness][porkness] for a fork of the [OpenRGSS][openrgss] project with specific modifications for this library.

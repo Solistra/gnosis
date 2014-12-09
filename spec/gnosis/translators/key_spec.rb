@@ -17,7 +17,7 @@ describe Gnosis::Translators::Key do
   describe '.advance' do
     it 'appropriately mutates the key state' do
       instance = subject.class.new
-      expect(instance.advance).to eq 381717749
+      expect(instance.advance).to eq 0x16C08CF5
     end
   end
   
@@ -25,7 +25,7 @@ describe Gnosis::Translators::Key do
     it 'returns the current key state' do
       instance = subject.class.new
       instance.advance
-      expect(instance.current).to eq 381717749
+      expect(instance.current).to eq 0x16C08CF5
     end
   end
 end

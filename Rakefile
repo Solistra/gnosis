@@ -24,16 +24,6 @@ namespace :yard do
   task :serve do
     `yard server -r`
   end
-  
-  desc 'List all @todo items'
-  task :todo do
-    Rake::Task[:yard].invoke unless File.directory?('doc/')
-    puts 'TODO:'
-    YARD::Registry.load!.all.each do |o|
-      next unless tag = o.tag(:todo)
-      puts '  ' << tag.text.gsub!(/\s/, ' ')
-    end
-  end
 end
 
 namespace :spec do

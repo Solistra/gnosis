@@ -7,6 +7,9 @@ module Gnosis
     # XP and VX. This class provides the implementation-specific {#scan_files}
     # and {#decrypt} methods as used by an {Archive Archive} instance.
     class RGSSAD
+      # @raise [InvalidArchiveError] if the parent object's archive is not a
+      #   valid RGSSAD encrypted archive
+      # @param [Archive] parent the archive which contains this translator
       def initialize(parent)
         unless File.read(parent.archive, 8).unpack('a6U*').join == 'RGSSAD01'
           raise InvalidArchiveError, parent.archive

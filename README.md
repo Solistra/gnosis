@@ -1,6 +1,9 @@
 # Gnosis
 [![Build Status](https://travis-ci.org/Solistra/gnosis.svg?branch=master)][travis]
 [![Coverage Status](https://coveralls.io/repos/Solistra/gnosis/badge.png?branch=master)][coverage]
+[![Gem Version](https://badge.fury.io/rb/gnosis.svg)][gem]
+[![Inline docs](http://inch-ci.org/github/Solistra/gnosis.svg?branch=master)][inch]
+[![Documentation](http://b.repl.ca/v1/yard-docs-blue.png)][yard]
 
 1. _noun: spiritual knowledge; mystical enlightenment._
 2. _noun: the act or process of knowing._
@@ -9,13 +12,8 @@
 Gnosis performs in-memory decryption of the contents of encrypted RGSSAD archives (as used by the RPG Maker series) to binary strings via a class representing the archive. Encrypted archives may be searched for specific contents which can then be decrypted to a string -- perfect for implementing custom Ruby game players by converting the binary string directly into an IO instance with the Ruby `StringIO` class present in the standard library.
 
 ## Installation
-At present, Gnosis is still in early development. As such, you will need to clone [the GitHub repository][repo] and install its development dependencies in order to do anything with it:
-
 ```sh
-$ git clone https://github.com/Solistra/gnosis.git
-$ cd gnosis/
-$ gem install bundler
-$ bundle install
+$ gem install gnosis
 ```
 
 ## Disclaimer
@@ -34,7 +32,10 @@ Unfortunately, the original source of these algorithms could not be located -- p
 Gnosis is made available under the terms of the LGPL version 3 license. See the included LICENSE file for more information.
 
 [coverage]: https://coveralls.io/r/Solistra/gnosis?branch=master
+[inch]:     http://inch-ci.org/github/Solistra/gnosis
 [repo]:     https://www.github.com/Solistra/gnosis
 [openrgss]: http://openrgss.org
 [porkness]: https://www.github.com/Porkness
+[gem]:      http://badge.fury.io/rb/gnosis
 [travis]:   https://travis-ci.org/Solistra/gnosis
+[yard]:     http://rubydoc.info/gems/gnosis/frames

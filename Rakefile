@@ -22,7 +22,7 @@ namespace :yard do
   
   desc 'Start YARD Documentation server on localhost:8808'
   task :serve do
-    `yard server -r`
+    sh 'yard server -r'
   end
 end
 

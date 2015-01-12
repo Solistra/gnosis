@@ -3,6 +3,28 @@ require 'spec_helper'
 describe Gnosis::Archive do
   let :assets   do 'spec/gnosis/assets/' end
   let :instance do Gnosis::Archive.new(assets + 'Game.rgss3a') end
+  let :binary_data do
+    "\u0004\b[\u00100o:\u0015RPG::CommonEvent\n:\r@triggeri\u0000:\n@nameI"  <<
+    "\"\u0000\u0006:\u0006ET:\u000F@switch_idi\u0006:\n@list[\u0006o:"       <<
+    "\u0016RPG::EventCommand\b:\f@indenti\u0000:\n@codei\u0000:"             <<
+    "\u0010@parameters[\u0000:\b@idi\u0006o;\u0000\n;\u0006i\u0000;\aI\""    <<
+    "\u0000\u0006;\bT;\ti\u0006;\n[\u0006o;\v\b;\fi\u0000;\ri\u0000;\u000E[" <<
+    "\u0000;\u000Fi\ao;\u0000\n;\u0006i\u0000;\aI\"\u0000\u0006;\bT;\ti"     <<
+    "\u0006;\n[\u0006o;\v\b;\fi\u0000;\ri\u0000;\u000E[\u0000;\u000Fi\bo;"   <<
+    "\u0000\n;\u0006i\u0000;\aI\"\u0000\u0006;\bT;\ti\u0006;\n[\u0006o;"     <<
+    "\v\b;\fi\u0000;\ri\u0000;\u000E[\u0000;\u000Fi\to;\u0000\n;\u0006i"     <<
+    "\u0000;\aI\"\u0000\u0006;\bT;\ti\u0006;\n[\u0006o;\v\b;\fi\u0000;\ri"   <<
+    "\u0000;\u000E[\u0000;\u000Fi\no;\u0000\n;\u0006i\u0000;\aI\"\u0000"     <<
+    "\u0006;\bT;\ti\u0006;\n[\u0006o;\v\b;\fi\u0000;\ri\u0000;\u000E["       <<
+    "\u0000;\u000Fi\vo;\u0000\n;\u0006i\u0000;\aI\"\u0000\u0006;\bT;\ti"     <<
+    "\u0006;\n[\u0006o;\v\b;\fi\u0000;\ri\u0000;\u000E[\u0000;\u000Fi\fo;"   <<
+    "\u0000\n;\u0006i\u0000;\aI\"\u0000\u0006;\bT;\ti\u0006;\n[\u0006o;\v\b" <<
+    ";\fi\u0000;\ri\u0000;\u000E[\u0000;\u000Fi\ro;\u0000\n;\u0006i\u0000;"  <<
+    "\aI\"\u0000\u0006;\bT;\ti\u0006;\n[\u0006o;\v\b;\fi\u0000;\ri\u0000;"   <<
+    "\u000E[\u0000;\u000Fi\u000Eo;\u0000\n;\u0006i\u0000;\aI\"\u0000\u0006;" <<
+    "\bT;\ti\u0006;\n[\u0006o;\v\b;\fi\u0000;\ri\u0000;\u000E[\u0000;"       <<
+    "\u000Fi\u000F"
+  end
   
   describe '.new' do
     context 'given a valid argument' do
@@ -49,7 +71,16 @@ describe Gnosis::Archive do
   end
   
   describe '#decrypt' do
-    # TODO: Write this test.
+    context 'given a valid file' do
+      it 'decrypts the file to a binary string' do
+        expect(instance.decrypt('Data/CommonEvents.rvdata2')).to eq binary_data
+      end
+    end
+    context 'given an invalid file' do
+      it 'raises Errno::ENOENT' do
+        expect { instance.decrypt('Invalid') }.to raise_error (Errno::ENOENT)
+      end
+    end
   end
   
   describe '#search' do

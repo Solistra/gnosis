@@ -12,7 +12,7 @@ module Gnosis
       #   valid RGSS3A encrypted archive
       # @param [Archive] parent the archive which contains this translator
       def initialize(parent)
-        unless File.read(parent.archive, 8).unpack('a6U*').join == 'RGSSAD03'
+        unless File.read(parent.archive, 8).unpack('a6U2').join == 'RGSSAD03'
           raise InvalidArchiveError, parent.archive
         end
         @parent = parent
@@ -29,10 +29,10 @@ module Gnosis
         hash = {}
         File.open(@parent.archive) do |archive|
           archive.seek(8) # Skip archive version information.
-          key = (archive.read(4).unpack('V').first * 9 + 3) & 0xFFFFFFFF
+          key = (archive.read(4).unpack('V')[0] * 9 + 3) & 0xFFFFFFFF
           loop do
-            info = archive.read(16).unpack('V4').map { |i| i ^ key }
-            break if info.first.zero?
+            info = archive.read(16).unpack('V4').map! { |i| i ^ key }
+            break if info[0] == 0
             file = translate_file(archive.read(info[3]), key)
             hash[file] = { position: info[0], size: info[1], subkey: info[2] }
           end
@@ -64,3 +64,4 @@ module Gnosis
     end
   end
 end
+

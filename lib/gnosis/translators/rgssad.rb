@@ -11,7 +11,7 @@ module Gnosis
       #   valid RGSSAD encrypted archive
       # @param [Archive] parent the archive which contains this translator
       def initialize(parent)
-        unless File.read(parent.archive, 8).unpack('a6U*').join == 'RGSSAD01'
+        unless File.read(parent.archive, 8).unpack('a6U2').join == 'RGSSAD01'
           raise InvalidArchiveError, parent.archive
         end
         @parent = parent
@@ -26,12 +26,13 @@ module Gnosis
       #   associated encryption information
       def scan_files
         hash = {}
-        @key  = Key.new
+        @key = Key.new
         File.open(@parent.archive) do |archive|
           archive.seek(8)
           loop do
+            # TODO: Fix this so `rescue` isn't used -- it slows the loop.
             length = translate_int(archive.read(4)) rescue break
-            file   = translate_file(archive.read(length)).gsub!(/\\/, '/')
+            file   = translate_file(archive.read(length))
             hash[file]          = { :position => archive.tell + 4 }
             hash[file][:size]   = translate_int(archive.read(4))
             hash[file][:subkey] = @key.current
@@ -51,10 +52,11 @@ module Gnosis
       # @return [String] the decrypted binary contents of the given file
       def decrypt(file)
         raise Errno::ENOENT, file unless @parent.files[file]
-        data = ''
-        info = @parent.files[file]
-        key  = Key.new(info[:subkey])
-        size, remainder = (info[:size] / 4.0).ceil, info[:size] % 4
+        data      = ''
+        info      = @parent.files[file]
+        key       = Key.new(info[:subkey])
+        size      = (info[:size] / 4.0).ceil
+        remainder = info[:size] % 4
         
         File.open(@parent.archive) do |archive|
           archive.seek(info[:position])
@@ -84,7 +86,7 @@ module Gnosis
       # @param [Number] key subkey used to decrypt the given bytes
       # @return [String] string of decrypted bytes
       def translate_data(bytes, key)
-        [bytes.unpack('V').first ^ key.current].pack('V')
+        [bytes.unpack('V')[0] ^ key.current].pack('V')
       end
       
       # Translates an encrypted binary filename within the archive to a UTF-8
@@ -97,7 +99,7 @@ module Gnosis
           result = (byte ^ @key.current & 0xFF).chr
           @key.advance
           result
-        end.join.force_encoding('utf-8')
+        end.join.force_encoding('utf-8').gsub!(/\\/, '/')
       end
       
       # Translates an encrypted binary integer to a native Ruby integer.
@@ -105,10 +107,11 @@ module Gnosis
       # @param [String] bytes string of encrypted bytes
       # @return [Number] a decrypted native integer
       def translate_int(bytes)
-        result = bytes.unpack('V').first ^ @key.current
+        result = bytes.unpack('V')[0] ^ @key.current
         @key.advance
         result
       end
     end
   end
 end
+

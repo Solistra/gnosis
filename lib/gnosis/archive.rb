@@ -23,7 +23,7 @@ module Gnosis
     # 
     # @raise [InvalidArchiveError] if the given archive is invalid
     # @param [String] archive the relative path to an encrypted archive
-    def initialize(archive)
+    def initialize(archive = File.expand_path('./Game.rgss3a'))
       @archive    = File.expand_path(archive)
       @translator = Translators.class_for(self)
       @files      = @translator.scan_files
@@ -61,7 +61,7 @@ module Gnosis
     # @example Decrypt to StringIO
     #   require 'stringio'
     #   archive = Gnosis::Archive.new('path/to/Game.rgss3a')
-    #   io = StringIO.new(archive.decrypt('Graphics/Titles1/Title.png'))
+    #   title   = StringIO.new(archive.decrypt('Graphics/Titles1/Title.png'))
     # 
     # @raise [Errno::ENOENT] if the given file does not exist in the archive
     # @param [String] file internal path of encrypted file
@@ -125,3 +125,4 @@ module Gnosis
     alias_method :inspect, :to_s
   end
 end
+
